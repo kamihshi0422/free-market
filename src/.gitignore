@@ -1,15 +1,35 @@
+# Node / npm / yarn
 /node_modules
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
-.env
-.env.backup
-.phpunit.result.cache
-docker-compose.override.yml
-Homestead.json
-Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+# Laravel / PHP
+/vendor
+/bootstrap/cache/
+storage/*.key
+/storage/framework/cache/
+storage/framework/sessions/
+storage/framework/views/
+storage/logs/
+.phpunit.result.cache
+
+# 環境設定ファイル
+.env
+.env.testing
+.env.backup
+src/.env
+src/.env.testing
+
+# Docker
+docker-compose.override.yml
+docker/mysql/data/
+
+# IDE
 /.idea
 /.vscode
+Homestead.json
+Homestead.yaml
+
+# Laravel hot / public
+/public/hot
+/public/storage

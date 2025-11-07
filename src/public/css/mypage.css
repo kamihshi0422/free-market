@@ -1,0 +1,114 @@
+.mypage-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 1017PX;
+    gap: 50px;
+    margin: 60px auto;
+}
+
+.user {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    align-items: center;
+}
+
+.user-img img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.user-name {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.profile__edit-btn {
+    text-decoration: none;
+    font-size: 26px;
+    font-weight: bold;
+    color: #FF5555;
+    border: 2px solid #FF5555;
+    border-radius: 10px;
+    width: 310px;
+    text-align: center;
+    padding: 5px 20px;
+    margin-left: 200px;
+}
+
+.mypage__nav {
+    display: flex;
+    gap: 40px;
+    padding-left: 100px;
+    border-bottom: 2px solid #5F5F5F;
+}
+
+.mypage__nav a {
+    text-decoration: none;
+    width: 155px;
+    height: 40px;
+    font-size: 24px;
+    color: #5F5F5F;
+}
+
+/* 現在のタブを赤く表示 */
+.mypage__nav a.active {
+    color: red;
+    font-weight: bold;
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 50px;
+    margin: 80px auto 0;
+    max-width: 1400px;
+    justify-items: center;
+    padding: 0 20px;
+}
+
+.product-card {
+    text-align: center;
+    border-radius: 4px;
+}
+
+.product-img {
+    width: 290px;
+    height: 290px;
+    object-fit: cover;
+    box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+.product-detail {
+    display: flex;
+    gap: 20px;
+    justify-content: left;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.product-detail p {
+    font-size: 25px;
+    margin: 0;
+}
+
+.sold-label {
+    font-size: 25px;
+    color: red;
+}
+
+/* 1400〜1540pxでも崩れないように微調整 */
+@media screen and (max-width: 1540px) {
+    .product-list {
+        gap: 70px 50px;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .product-list {
+        grid-template-columns: repeat(3, 1fr);
+        padding: 0 40px;
+    }
+}

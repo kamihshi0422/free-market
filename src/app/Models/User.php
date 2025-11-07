@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'postcode',
+        'address',
+        'building',
+        'img_url',
     ];
 
     /**
@@ -33,6 +37,28 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+     // リレーション
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function mylists()
+    {
+        return $this->belongsToMany(Product::class, 'mylists')->withTimestamps();
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
+
+
     /**
      * The attributes that should be cast.
      *
@@ -41,4 +67,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    // 「users テーブルの email_verified_at カラムを Carbonインスタンス（日時型） として扱う」という指定
 }

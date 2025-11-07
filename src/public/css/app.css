@@ -1,0 +1,118 @@
+.header {
+    background: #000;
+    width: 100%;
+    height: 82px;
+    display: flex;
+    justify-content: center;
+}
+
+.header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1540px;
+    box-sizing: border-box;
+}
+
+.header__logo img {
+    width: 370px;
+    height: 36px;
+}
+
+.header__search {
+    width: 563px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header__search-input {
+    width: 500px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    font-size: 24px;
+    line-height: 50px;
+}
+
+.header__search-input::placeholder {
+    font-size: 24px;
+    text-align: center;
+    color: #000;
+    opacity: 1;
+}
+
+.header__menu {
+    width: 463px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.header__button {
+    font-size: 24px;
+    color: #fff;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+}
+
+.header__button--sell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 50px;
+    background-color: #fff;
+    border-radius: 4px;
+    text-decoration: none !important;
+    color: #000 !important;
+    font-size: 24px;
+}
+
+.user-placeholder {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #D9D9D9;
+    display: inline-block;
+}
+
+/* レスポンシブ: 1400〜1540px */
+@media (max-width: 1540px) and (min-width: 1400px) {
+    .header__container {
+        padding: 0 20px;
+    }
+
+    .header__logo img {
+        width: 300px;
+    }
+
+    .header__search {
+        width: 480px;
+    }
+
+    .header__search-input {
+        width: 440px;
+        font-size: 20px;
+    }
+
+    .header__menu {
+        width: 420px;
+        gap: 16px;
+    }
+
+    .header__button--sell {
+        width: 90px;
+        height: 45px;
+        font-size: 22px;
+    }
+}

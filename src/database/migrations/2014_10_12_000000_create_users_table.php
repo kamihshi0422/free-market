@@ -17,8 +17,12 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('email_verified_at')->nullable(); //認証メールを確認したら日時が入る
             $table->string('password');
+            $table->string('postcode')->nullable();;
+            $table->string('address')->nullable();;
+            $table->string('building')->nullable();
+            $table->string('img_url')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

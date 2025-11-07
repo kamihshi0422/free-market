@@ -1,0 +1,174 @@
+.buy__wrapper {
+    display: flex;
+    gap: 40px;
+    margin: 90px 70px;
+    align-items: flex-start;
+}
+
+.pay__box {
+    flex: 1;
+    max-width: 805px;
+}
+
+.product__info {
+    display: flex;
+    gap: 40px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #000;
+}
+
+.product__img {
+    width: 177px;
+    height: 177px;
+}
+
+.product__details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.product__name {
+    margin: 0;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.product__price {
+    margin: 0;
+    font-size: 30px;
+}
+
+.product__price::before {
+    content: "¥";
+    font-size: 27px;
+    vertical-align: middle;
+    padding-right: 5px;
+}
+
+.payment__section {
+    position: relative;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #000;
+}
+
+.payment__ttl {
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 40px;
+}
+
+.payment__section select {
+    width: 265px;
+    height: 40px;
+    margin-left: 80px;
+    border: 1px solid #5F5F5F;
+    border-radius: 4px;
+    padding: 0 30px 0 10px;
+    font-size: 16px;
+    appearance: none;
+    background-color: #fff;
+    background-image: none;
+    position: relative;
+}
+
+.payment__section select:focus {
+    background-color: #636769;
+    color: #fff;
+    outline: none;
+}
+
+.payment__section::after {
+    content: "▼";
+    position: absolute;
+    left: 320px;
+    top: 60px;
+    pointer-events: none;
+    font-size: 14px;
+    color: #5F5F5F;
+}
+
+.address__section {
+    padding-bottom: 50px;
+    border-bottom: 1px solid #000;
+}
+
+.address__section-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 20px 20px 0;
+}
+
+.address__ttl {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.btn-change {
+    text-decoration: none;
+    color: #0073CC;
+    font-size: 20px;
+}
+
+.address__view {
+    margin: 0;
+    margin-left: 80px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.buy__box {
+    width: 440px;
+    flex-shrink: 0;
+}
+
+.confirm__section {
+    width: 440px;
+    height: 230px;
+    margin-bottom: 60px;
+}
+
+.confirm__table {
+    border: solid 1px #000;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.confirm__table tr {
+    border-bottom: solid 1px #000;
+}
+
+.confirm__table tr th,
+.confirm__table tr td {
+    width: 220px;
+    height: 115px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.confirm__table tr td {
+    font-size: 24px;
+}
+
+.confirm__price::before {
+    content: "¥";
+    font-size: 20px;
+    vertical-align: middle;
+    padding-right: 5px;
+}
+
+.btn-buy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 440px;
+    height: 60px;
+    background-color: #FF5555;
+    border-radius: 4px;
+    border: none;
+    text-decoration: none !important;
+    color: #fff !important;
+    font-size: 26px;
+    font-weight: bold;
+}
