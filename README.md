@@ -15,12 +15,14 @@ DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
-2. `docker-compose exec php bash`
 
-3. 商品画像の移動と、画像保存用ファイルの作成・紐づけ
+3. 商品画像の移動と、画像保存用ファイルの作成・紐づけ・権限付与
 `mv img products_images src/storage/app/public`
 `mkdir src/storage/app/public/user_images`
+`docker-compose exec php bash`
 ``` bash
+chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 php artisan storage:link
 ```
 
@@ -41,29 +43,17 @@ php artisan migrate
 php artisan db:seed
 ```
 
-8.
-cd src
-sudo chown -R $USER:www-data storage bootstrap/cache
-sudo chmod -R 775 storage bootstrap/cache
-
-git にまとめてあげる
-https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg
-https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/HDD+Hard+Disk.jpg
-https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/iLoveIMG+d.jpg
-https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Leather+Shoes+Product+Photo.jpg
-https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Living+Room+Laptop.jpg
-https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Music+Mic+4632231.jpg
-https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Purse+fashion+pocket.jpg
-https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Tumbler+souvenir.jpg
-https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Waitress+with+Coffee+Grinder.jpg
-https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/%E5%A4%96%E5%87%BA%E3%83%A1%E3%82%A4%E3%82%AF%E3%82%A2%E3%83%83%E3%83%95%E3%82%9A%E3%82%BB%E3%83%83%E3%83%88.jpg
+8.　（  エラーが出る場合）
+`cd src`
+`sudo chown -R $USER:www-data storage bootstrap/cache`
+`sudo chmod -R 775 storage bootstrap/cache`
 
 **Stripe 設定**
 1. https://stripe.com/jp にサインアップ
 2. ダッシュボードの「開発者」→「APIキー」から以下を取得
   - 公開可能キー (STRIPE_KEY)
   - シークレットキー (STRIPE_SECRET)
-3. .env に設定
+3. 上記で取得したAPIキーを.env に設定
 ``` text
 STRIPE_KEY=pk_test_XXXXXXXXXXXX
 STRIPE_SECRET=sk_test_XXXXXXXXXXXX
@@ -96,21 +86,31 @@ STRIPE_SECRET=sk_test_XXXXXXXXXXXX
   - 購入手続きボタンは非表示
 
 ## テスト用環境設定
-`.env.example` をコピーして `.env.testing` を作成し、DBやメール設定を変更します。
+1. `.env` をコピーして `.env.testing` を作成し、DBやメール設定を変更します。
+`cp .env.example .env.testing`
+```text
+APP_ENV=test
+
+DB_DATABASE=demo_test
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+2. テスト用DBの作成
 ```bash
-cp .env.example .env.testing
+docker exec -it free-market-mysql-1 bash
+mysql -u root -p
 ```
+- パスワードはrootと入力してenter。
+- 下記をmysqlコンテナ内で一行ずつ実施します。
 ```
-DB_USERNAME=laravel_user
-DB_PASSWORD=laravel_pass
+CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON　demo_test.* TO 'root'@'%';
+FLUSH PRIVILEGES;
+EXIT;
+```
+`docker-compose exec php bash`
 
-MAIL_FROM_NAME="Laravel Test"
-
-ダッシュボードの「開発者」→「APIキー」から以下を取得
-STRIPE_KEY=pk_test_XXXXXXXXXXXX
-STRIPE_SECRET=sk_test_XXXXXXXXXXXX
-```
-1. テスト専用マイグレーション
+3. テスト専用マイグレーション
 ``` bash
 php artisan migrate:fresh --env=testing
 ```
@@ -120,9 +120,9 @@ php artisan db:seed --env=testing
 ```
 3. テスト実行
 ``` bash
-php artisan test --env=testing
-
-
+php artisan test tests/Feature --env=testing
+```
 - または特定のテスト
+``` bash
 php artisan test tests/Feature/ProductListTest.php
 ```
