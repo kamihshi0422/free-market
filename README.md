@@ -13,29 +13,47 @@
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
-- 設定反映 (phpコンテナ内)
+2. composerのインストール
 - `docker-compose exec php bash`
+- 権限の変更（エラー防止）
 ```bash
 cd /var/www
+mkdir -p bootstrap/cache storage/framework/cache/data
+mkdir -p storage/framework/views
+mkdir -p storage/framework/sessions
+mkdir -p storage/framework/testing
+chown -R www-data:www-data storage bootstrap/cache
+chmod -R 775 storage bootstrap/cache
+```
+```bash
+composer install
+```
+- 設定反映 (phpコンテナ内)
+```bash
 php artisan config:clear
 php artisan view:clear
 php artisan route:clear
 php artisan config:cache
+composer dump-autoload
+php artisan package:discover
 ```
-2. composerのインストール
-```bash
-mkdir -p bootstrap/cache
-chown -R www-data:www-data storage bootstrap/cache
-chmod -R 775 storage bootstrap/cache
-composer install
-```
+
 3. 画像ディレクトリ準備
+- `mkdir -p src/storage/app/public`
+- `docker-compose exec php bash`
+```bash
+chown -R $(whoami):$(whoami) src/storage/app/public
+chmod -R 775 src/storage/app/public
+exit
+```
 - `mv img products_images src/storage/app/public`
 - `mkdir src/storage/app/public/user_images`
 
 - `docker-compose exec php bash`
 ``` bash
 php artisan storage:link
+chown -R www-data:www-data storage bootstrap/cache
+chmod -R 775 storage bootstrap/cache
 ```
 
 5. アプリケーションキーの作成
@@ -52,15 +70,14 @@ php artisan migrate
 ``` bash
 php artisan db:seed
 ```
-
-8. 権限トラブル対応（必要な場合）
-```bash
+- 権限の変更（エラー防止）
+``` bash
 exit
 ```
 - `cd src`
 - `sudo chown -R $USER:www-data storage bootstrap/cache`
 - `sudo chmod -R 775 storage bootstrap/cache`
-
+- `cd ../`
 **Stripe 設定**
 1. https://stripe.com/jp にサインアップ
 2. ダッシュボードの「開発者」→「APIキー」から以下を取得
@@ -74,6 +91,7 @@ STRIPE_SECRET=sk_test_XXXXXXXXXXXX
 
 ## テスト用環境設定
 1. `.env` をコピーして `.env.testing` を作成し、DBやメール設定を変更します。
+※DB_DATABASEがそのままだと本番DBが消えてしまいますのでご注意ください。
 - `cp src/.env src/.env.testing`
 ```text
 APP_ENV=test
@@ -102,9 +120,9 @@ exit
 - .env.testingを変更してphpコンテナ内で以下を実施
 ```bash
 php artisan config:clear
-php artisan view:clear
+php artisan cache:clear
 php artisan route:clear
-php artisan config:cache
+php artisan view:clear
 ```
 3. テスト専用マイグレーション
 ``` bash
