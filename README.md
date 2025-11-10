@@ -1,23 +1,31 @@
 ## 環境構築
 **Dockerビルド**
 1. `git clone git@github.com:kamihshi0422/free-market.git`
-cd free-market
-2. DockerDesktopアプリを立ち上げる
-3. `docker-compose up -d --build`
+2. `cd free-market`
+3. DockerDesktopアプリを立ち上げる
+4. `docker-compose up -d --build`
+5. `code .`
 
 **Laravel環境構築**
-1. `docker-compose exec php bash`
-2. `composer install`
-3. 「.env.example」ファイルを コピーして「.env」を作成し、DBの設定を変更
-```
-cp .env.example .env
-```
+1. 「.env.example」ファイルを コピーして「.env」を作成し、DBの設定を変更
+`cp src/.env.example src/.env`
 ``` text
 DB_HOST=mysql
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
+2. `docker-compose exec php bash`
+
+3. 商品画像の移動と、画像保存用ファイルの作成・紐づけ
+`mv img products_images src/storage/app/public`
+`mkdir src/storage/app/public/user_images`
+``` bash
+php artisan storage:link
+```
+
+4. `composer install`
+
 5. アプリケーションキーの作成
 ``` bash
 php artisan key:generate
@@ -33,6 +41,7 @@ php artisan migrate
 php artisan db:seed
 ```
 
+8.
 cd src
 sudo chown -R $USER:www-data storage bootstrap/cache
 sudo chmod -R 775 storage bootstrap/cache
