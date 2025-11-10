@@ -69,15 +69,14 @@ php artisan migrate
 7. シーディングの実行
 ``` bash
 php artisan db:seed
-```
-- 権限の変更（エラー防止）
-``` bash
 exit
 ```
+- 権限の変更（エラー防止）
 - `cd src`
 - `sudo chown -R $USER:www-data storage bootstrap/cache`
 - `sudo chmod -R 775 storage bootstrap/cache`
 - `cd ../`
+
 **Stripe 設定**
 1. https://stripe.com/jp にサインアップ
 2. ダッシュボードの「開発者」→「APIキー」から以下を取得
@@ -91,7 +90,7 @@ STRIPE_SECRET=sk_test_XXXXXXXXXXXX
 
 ## テスト用環境設定
 1. `.env` をコピーして `.env.testing` を作成し、DBやメール設定を変更します。
-※DB_DATABASEがそのままだと本番DBが消えてしまいますのでご注意ください。
+- ※DB_DATABASEがそのままだと本番DBが消えてしまいますのでご注意ください。
 - `cp src/.env src/.env.testing`
 ```text
 APP_ENV=test
@@ -117,7 +116,7 @@ EXIT;
 exit
 ```
 - `docker-compose exec php bash`
-- .env.testingを変更してphpコンテナ内で以下を実施
+- .env.testingの設定反映
 ```bash
 php artisan config:clear
 php artisan cache:clear
