@@ -33,3 +33,6 @@ Homestead.yaml
 # Laravel hot / public
 /public/hot
 /public/storage
+
+# Docker MySQL data
+docker/mysql/data/

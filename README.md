@@ -1,6 +1,7 @@
 ## 環境構築
 **Dockerビルド**
 1. `git clone git@github.com:kamihshi0422/free-market.git`
+cd free-market
 2. DockerDesktopアプリを立ち上げる
 3. `docker-compose up -d --build`
 
@@ -31,6 +32,22 @@ php artisan migrate
 ``` bash
 php artisan db:seed
 ```
+
+cd src
+sudo chown -R $USER:www-data storage bootstrap/cache
+sudo chmod -R 775 storage bootstrap/cache
+
+git にまとめてあげる
+https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg
+https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/HDD+Hard+Disk.jpg
+https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/iLoveIMG+d.jpg
+https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Leather+Shoes+Product+Photo.jpg
+https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Living+Room+Laptop.jpg
+https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Music+Mic+4632231.jpg
+https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Purse+fashion+pocket.jpg
+https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Tumbler+souvenir.jpg
+https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Waitress+with+Coffee+Grinder.jpg
+https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/%E5%A4%96%E5%87%BA%E3%83%A1%E3%82%A4%E3%82%AF%E3%82%A2%E3%83%83%E3%83%95%E3%82%9A%E3%82%BB%E3%83%83%E3%83%88.jpg
 
 **Stripe 設定**
 1. https://stripe.com/jp にサインアップ
@@ -69,28 +86,18 @@ STRIPE_SECRET=sk_test_XXXXXXXXXXXX
   - 詳細画面は表示可能
   - 購入手続きボタンは非表示
 
-## テスト用環境設定 
+## テスト用環境設定
 `.env.example` をコピーして `.env.testing` を作成し、DBやメール設定を変更します。
 ```bash
 cp .env.example .env.testing
 ```
 ```
-DB_CONNECTION=mysql
-DB_HOST=mysql
-DB_PORT=3306
-DB_DATABASE=laravel_test
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 
-MAIL_MAILER=smtp
-MAIL_HOST=mailhog
-MAIL_PORT=1025
-MAIL_USERNAME=null
-MAIL_PASSWORD=null
-MAIL_ENCRYPTION=null
-MAIL_FROM_ADDRESS="example@test.com"
 MAIL_FROM_NAME="Laravel Test"
 
+ダッシュボードの「開発者」→「APIキー」から以下を取得
 STRIPE_KEY=pk_test_XXXXXXXXXXXX
 STRIPE_SECRET=sk_test_XXXXXXXXXXXX
 ```
@@ -105,6 +112,8 @@ php artisan db:seed --env=testing
 3. テスト実行
 ``` bash
 php artisan test --env=testing
+
+
 - または特定のテスト
 php artisan test tests/Feature/ProductListTest.php
 ```
