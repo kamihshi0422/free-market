@@ -123,15 +123,15 @@ php artisan cache:clear
 php artisan route:clear
 php artisan view:clear
 ```
-3. テスト専用マイグレーション
+4. テスト専用マイグレーション
 ``` bash
 php artisan migrate:fresh --env=testing
 ```
-2. テスト専用シーディング
+5. テスト専用シーディング
 ``` bash
 php artisan db:seed --env=testing
 ```
-3. テスト実行
+6. テスト実行
 ``` bash
 php artisan test tests/Feature --env=testing
 ```
