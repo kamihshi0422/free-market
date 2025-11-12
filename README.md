@@ -114,7 +114,7 @@ DB_PASSWORD=root
 ```
 > _※DB_DATABASE=laravel_db のままだと本番DBが消えてしまいますのでご注意ください。_
 
-3. テスト用dbを作成（ターミナルで実行）
+3. テスト用DBを作成（ターミナルで実行）
 ``` bash
 docker exec -it free-market-mysql-1 mysql -u root -proot -e \
 "CREATE DATABASE IF NOT EXISTS demo_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
