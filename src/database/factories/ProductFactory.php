@@ -13,7 +13,6 @@ class ProductFactory extends Factory
 
     public function definition()
     {
-        // Condition が存在しなければ最低1件作成
         if (Condition::count() === 0) {
             Condition::factory()->create(['id' => 1]);
         }

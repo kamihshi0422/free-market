@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
@@ -28,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/purchase/address/{id}', [ProductController::class, 'updateAddress'])->name('address.update');
     Route::get('/sell', [ProductController::class, 'showExhibition'])->name('exhibition.show');
     Route::post('/sell', [ProductController::class, 'exhibition'])->name('exhibition.store');
+
     Route::get('/mypage', [ProfileController::class, 'showProfile'])->name('profile.show');
     Route::get('/mypage/profile', [ProfileController::class, 'editProfile'])->name('profile.edit');
     Route::post('/mypage/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');

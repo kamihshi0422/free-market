@@ -20,9 +20,7 @@ class Product extends Model
         'status',
     ];
 
-    // リレーション
-    // belongsTo は 単数形 にするのがベスト ,hasMany / belongsToMany は 複数形 にするのが自然
-    public function user() //userでok
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

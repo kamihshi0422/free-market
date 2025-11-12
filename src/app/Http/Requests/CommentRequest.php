@@ -13,7 +13,7 @@ class CommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->check(); // ログインユーザーのみOK
+        return auth()->check();
     }
 
     /**
@@ -24,7 +24,7 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|string|max:255', // 入力必須、最大255文字
+            'content' => 'required|string|max:255',
         ];
     }
 

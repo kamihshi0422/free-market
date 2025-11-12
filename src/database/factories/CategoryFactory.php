@@ -7,7 +7,6 @@ use App\Models\Category;
 
 class CategoryFactory extends Factory
 {
-    // 対応するモデル
     protected $model = Category::class;
 
     /**
@@ -18,7 +17,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'category' => $this->faker->word, // ランダムな単語
+            'category' => $this->faker->word,
         ];
     }
 }

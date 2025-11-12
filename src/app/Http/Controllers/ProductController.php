@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Product;
+use App\Models\Purchase;
+use App\Models\Comment;
+use App\Models\Category;
+use App\Models\Condition;
 use Illuminate\Http\Request;
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\PurchaseRequest;
@@ -9,14 +15,6 @@ use App\Http\Requests\AddressRequest;
 use App\Http\Requests\ExhibitionRequest;
 use Stripe\Stripe;
 use Stripe\Checkout\Session as StripeSession;
-
-use App\Models\User;
-use App\Models\Product;
-use App\Models\Purchase;
-use App\Models\Comment;
-use App\Models\Category;
-use App\Models\Condition;
-
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller

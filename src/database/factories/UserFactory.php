@@ -15,7 +15,7 @@ class UserFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => Hash::make('password123'), // 共通パスワードに固定（テストしやすい）
+            'password' => Hash::make('password123'),
             'postcode' => $this->faker->postcode(),
             'address' => $this->faker->city() . $this->faker->streetAddress(),
             'building' => $this->faker->optional()->word() . 'ビル',
@@ -24,9 +24,6 @@ class UserFactory extends Factory
         ];
     }
 
-    /**
-     * 未認証状態のユーザーを作る時（任意）
-     */
     public function unverified()
     {
         return $this->state(fn (array $attributes) => [

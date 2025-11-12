@@ -67,5 +67,4 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    // 「users テーブルの email_verified_at カラムを Carbonインスタンス（日時型） として扱う」という指定
 }

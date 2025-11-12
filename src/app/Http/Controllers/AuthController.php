@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-
-use App\Models\User;
-
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
@@ -58,8 +56,6 @@ class AuthController extends Controller
 
         return back()->withErrors(['login' => 'ログイン情報が登録されていません'])->onlyInput('email');
     }
-
-
 
     public function logout(Request $request)
     {

@@ -16,7 +16,7 @@ class PurchaseFactory extends Factory
         return [
             'user_id' => User::factory(),
             'product_id' => Product::factory(),
-            'pay_method' => $this->faker->randomElement([1, 2]), // ← 数値に変更
+            'pay_method' => $this->faker->randomElement([1, 2]),
             'stripe_payment_intent_id' => 'pi_' . $this->faker->regexify('[A-Za-z0-9]{14}'),
             'created_at' => now(),
             'updated_at' => now(),

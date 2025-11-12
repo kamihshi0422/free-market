@@ -53,7 +53,6 @@
     color: #5F5F5F;
 }
 
-/* 現在のタブを赤く表示 */
 .mypage-nav a.active {
     color: red;
     font-weight: bold;
@@ -99,7 +98,6 @@
     color: red;
 }
 
-/* 1400〜1540pxでも崩れないように微調整 */
 @media screen and (max-width: 1540px) {
     .product-list {
         gap: 70px 50px;
