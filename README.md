@@ -138,9 +138,6 @@ php artisan package:discover"
 ``` bash
 php artisan migrate --env=testing
 ```
-``` bash
-php artisan migrate:fresh --env=testing
-```
 
 6. テスト専用シーディング
 
