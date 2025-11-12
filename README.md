@@ -8,10 +8,14 @@
 
 **Laravel環境構築**
 
-1. `docker-compose exec php bash`
+1. phpコンテナへ入る
+``` bash
+docker-compose exec php bash
+```
+
 2. `composer install`
 
-> _composerインストール時エラーが発生した際は、phpコンテナ内で以下のコマンドを実行してから再度composerインストールを実行してください。
+> _composerインストールでエラーが発生した際は、phpコンテナ内で以下のコマンドを実行してから再度composerインストールを実行してください。
 > Laravelアプリが正常に動作するためのフォルダ作成と権限の変更になります。_
 
 ```bash
@@ -23,7 +27,7 @@ chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
 ```
 
-3. 「.env.example」ファイルを コピーして「.env」を作成
+3. 「.env.example」ファイルを コピーして「.env」と命名
 4.  .envに以下の環境変数を追加
 
 ``` text
@@ -31,9 +35,11 @@ DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
 
-> .env　を変更した際、反映されないことがあるため、phpコンテナ内でまとめて以下を実行してください。_
+> _.env を変更した際、反映されないことがあるため、phpコンテナ内でまとめて以下を実行してください。_
 
-
+``` bash
+docker-compose exec php bash
+```
 ```bash
 php artisan config:clear
 php artisan cache:clear
@@ -68,7 +74,7 @@ php artisan db:seed
 - `mv img products_images src/storage/app/public`
 - `mkdir src/storage/app/public/user_images`
 
-> _Permission denied（権限のエラー）が出た際、以下を実施してください。_
+> _Permission denied（権限のエラー）が出た際、以下を実行してください。_
 
 ``` bash
 sudo chmod -R 777 src/*
@@ -96,45 +102,42 @@ STRIPE_SECRET=sk_test_XXXXXXXXXXXX
 
 ## テスト用環境設定
 
-1. 「.env」ファイルを コピーして「.env.testing」を作成
+1. 「.env」ファイルを コピーして「.env.testing」と命名
 2.  .env.testingに以下の環境変数を追加
 
 ```text
-APP_ENV=test
+	APP_ENV=test
 
-DB_DATABASE=demo_test
-DB_USERNAME=root
-DB_PASSWORD=root
+	DB_DATABASE=demo_test
+	DB_USERNAME=root
+	DB_PASSWORD=root
 ```
-> _※DB_DATABASEがlaravel_dbのままだと本番DBが消えてしまいますのでご注意ください。_
+> _※DB_DATABASE=laravel_db のままだと本番DBが消えてしまいますのでご注意ください。_
 
-2. `docker exec -it free-market-mysql-1 bash`　でテスト用DBの作成
-
-```bash
-mysql -u root -proot
+3. テスト用dbを作成（ターミナルで実行）
+``` bash
+docker exec -it free-market-mysql-1 mysql -u root -proot -e \
+"CREATE DATABASE IF NOT EXISTS demo_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+GRANT ALL PRIVILEGES ON demo_test.* TO 'root'@'%';
+FLUSH PRIVILEGES;"
 ```
 
-3. mysqlコンテナ内で下記を一行ずつ実施します。
-  1. CREATE DATABASE demo_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-  2. CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'root';
-  3. GRANT ALL PRIVILEGES ON demo_test.* TO 'root'@'%';
-  4. FLUSH PRIVILEGES;
-  5. EXIT;
-
-4. .env.testingの設定反映のため、phpコンテナ内で以下をまとめて実行
-
+4. .env.testingの設定反映（ターミナルで実行）
 ```bash
-php artisan config:clear
-php artisan cache:clear
-php artisan route:clear
-php artisan view:clear
-composer dump-autoload
-php artisan package:discover
-php artisan config:cache
+docker-compose exec php bash -c "
+php artisan config:clear &&
+php artisan cache:clear &&
+php artisan route:clear &&
+php artisan view:clear &&
+composer dump-autoload &&
+php artisan package:discover"
 ```
 
 5. テスト専用マイグレーション
 
+``` bash
+php artisan migrate --env=testing
+```
 ``` bash
 php artisan migrate:fresh --env=testing
 ```
