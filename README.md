@@ -106,11 +106,11 @@ STRIPE_SECRET=sk_test_XXXXXXXXXXXX
 2.  .env.testingに以下の環境変数を追加
 
 ```text
-	APP_ENV=test
+APP_ENV=test
 
-	DB_DATABASE=demo_test
-	DB_USERNAME=root
-	DB_PASSWORD=root
+DB_DATABASE=demo_test
+DB_USERNAME=root
+DB_PASSWORD=root
 ```
 > _※DB_DATABASE=laravel_db のままだと本番DBが消えてしまいますのでご注意ください。_
 
@@ -163,7 +163,7 @@ php artisan test tests/Feature --env=testing
 ## 追加機能の説明
 **コーチの確認・許可のもと、機能を加えています**
 
-- メール認証画面で「認証はこちらから」ボタンを押下するとMailHog（http://localhost:8025/）に遷移し、認証するとプロフィール編集画面に遷移する。
+- メール認証画面で「認証はこちらから」ボタンを押下するとMailHog（http://localhost:8025/） に遷移し、認証するとプロフィール編集画面に遷移する。
 - 未承認ユーザーが認証が必要なアクションを行いログインした場合、元の画面に遷移する
   - 例：商品詳細画面で「いいね」後ログイン → 商品詳細画面に戻る
   - 例：マイページボタン → ログイン後マイページに遷移
