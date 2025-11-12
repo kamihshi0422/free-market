@@ -25,7 +25,6 @@ class MylistTest extends TestCase
         $listedProduct = Product::factory()->create();
         $otherProduct = Product::factory()->create();
 
-        // mylists に登録
         $user->mylists()->attach($listedProduct->id);
 
         $this->actingAs($user);
@@ -42,10 +41,8 @@ class MylistTest extends TestCase
         $user = User::factory()->create();
         $product = Product::factory()->create();
 
-        // mylists に追加
         $user->mylists()->attach($product->id);
 
-        // 購入済みにする
         Purchase::factory()->create([
             'user_id' => $user->id,
             'product_id' => $product->id,

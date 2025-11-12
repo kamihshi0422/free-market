@@ -44,6 +44,23 @@ php artisan package:discover
 ```bash
 chown -R $(whoami):$(whoami) src/storage/app/public
 chmod -R 775 src/storage/app/public
+
+chown -R $(whoami):$(whoami) storage/app/public
+chmod -R 775 storage/app/public
+
+コーチｐｃだと　ｌｓ
+var/www src をマウントしてる
+
+chown -R www-data:www-data src/storage
+chmod -R 775 src/storage
+
+★全権限
+sudo chmod -R 777 src/*
+- 権限の変更（エラー防止）
+- `cd src`
+- `sudo chown -R $USER:www-data storage bootstrap/cache`
+- `sudo chmod -R 775 storage bootstrap/cache`
+- `cd ../`
 exit
 ```
 - `mv img products_images src/storage/app/public`
@@ -71,11 +88,6 @@ php artisan migrate
 php artisan db:seed
 exit
 ```
-- 権限の変更（エラー防止）
-- `cd src`
-- `sudo chown -R $USER:www-data storage bootstrap/cache`
-- `sudo chmod -R 775 storage bootstrap/cache`
-- `cd ../`
 
 **Stripe 設定**
 1. https://stripe.com/jp にサインアップ
@@ -102,16 +114,16 @@ DB_PASSWORD=root
 2. テスト用DBの作成
 ```bash
 docker exec -it free-market-mysql-1 bash
+```
+
 mysql -u root -proot
-```
+
 - 下記をmysqlコンテナ内で一行ずつ実施します。
-```
-CREATE DATABASE demo_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'root';
-GRANT ALL PRIVILEGES ON demo_test.* TO 'root'@'%';
+1. CREATE DATABASE demo_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+2. CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'root';
+3. GRANT ALL PRIVILEGES ON demo_test.* TO 'root'@'%';
 FLUSH PRIVILEGES;
 EXIT;
-```
 ```bash
 exit
 ```
@@ -154,6 +166,9 @@ php artisan test tests/Feature/ProductListTest.php
 - 購入済商品の挙動：
   - 詳細画面は表示可能
   - 購入手続きボタンは非表示
+
+
+
 
 ## 使用技術(実行環境)
 - PHP8.1 (php-fpm)

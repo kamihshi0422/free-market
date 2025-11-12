@@ -17,7 +17,6 @@ class ProductListTest extends TestCase
     {
         parent::setUp();
 
-        // マイグレーション＆必要シード投入
         $this->artisan('migrate:fresh');
         $this->seed(\Database\Seeders\Test\ConditionSeederTest::class);
     }
@@ -25,7 +24,6 @@ class ProductListTest extends TestCase
     /** @test */
     public function 全商品を取得できる()
     {
-        // condition_idを指定して商品を作成（外部キーエラー防止）
         $products = Product::factory()
             ->count(3)
             ->create(['condition_id' => Condition::inRandomOrder()->first()->id]);

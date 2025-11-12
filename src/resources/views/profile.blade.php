@@ -1,65 +1,55 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/profile.css')}}">
+<link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 @endsection
 
 @section('content')
-<div class="form-wrapper">
-    <h1 class="form-ttl">プロフィール設定</h1>
-    <form action="{{ route('profile.update')}}" method="post" enctype="multipart/form-data">
-        @csrf
-        <div class="user-box">
-                @if(!empty($user->img_url))
-                    <img src="{{ asset('storage/' . $user->img_url) }}" alt="プロフィール画像">
-                @else
-                    <div class="user-placeholder"></div>
-                @endif
-            <label for="img" class="img-btn">画像を選択する</label>
-            <input type="file" name="img" id="img" accept="image/*">
-            @error('img')
-                <p class="error">{{ $message }}</p>
-            @enderror
+<div class="mypage-head">
+    <div class="user">
+        <div class="user-img">
+            @if(!empty($user->img_url))
+                <img src="{{ asset('storage/' . $user->img_url) }}" alt="">
+            @else
+                <div class="user-placeholder"></div>
+            @endif
         </div>
-
-        <div class=form__group>
-            <div class="form__group-ttl">
-                <label for="name" class="form__label">ユーザー名</label>
-            </div>
-            <input type="text" name="name" value="{{ old('name', $user->name) }}">
-            @error('name')
-                <p class="error">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div class=form__group>
-            <div class="form__group-ttl">
-                <label for="postcode" class="form__label">郵便番号</label>
-            </div>
-            <input type="text" name="postcode" value="{{ old('postcode', $user->postcode) }}">
-            @error('postcode')
-                <p class="error">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div class=form__group>
-            <div class="form__group-ttl">
-                <label for="address" class="form__label">住所</label>
-            </div>
-            <input type="text" name="address" value="{{ old('address', $user->address) }}">
-            @error('address')
-                <p class="error">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div class=form__group>
-            <div class="form__group-ttl">
-                <label for="address" class="form__label">建物名</label>
-            </div>
-            <input type="text" name="building" value="{{ old('building', $user->building) }}">
-        </div>
-
-        <button type="submit" class="form__button-submit">更新する</button>
-    </form>
+        <h3 class="user-name">{{ $user->name }}</h3>
+    </div>
+    <a class="profile-edit-btn" href="{{ route('profile.edit') }}">プロフィールを編集</a>
 </div>
+
+<div class="mypage-nav">
+    <a href="{{ route('profile.show', ['page' => 'sell']) }}" class="{{ $page === 'sell' ? 'active' : '' }}">出品した商品</a>
+    <a href="{{ route('profile.show', ['page' => 'buy']) }}" class="{{ $page === 'buy' ? 'active' : '' }}">購入した商品</a>
+</div>
+
+<section class="product-list">
+    @if($page === 'sell')
+        @foreach($myProducts as $product)
+        <div class="product-card">
+            <a href="{{ route('detail.show', $product->id) }}">
+                <img class="product-img" src="{{ asset('storage/' . $product->img_url) }}" alt="商品画像">
+            </a>
+            <div class="product-detail">
+                <p>{{ $product->name }}</p>
+                @if($product->purchase)
+                    <span class="sold-label">Sold</span>
+                @endif
+            </div>
+        </div>
+        @endforeach
+    @elseif($page === 'buy')
+        @foreach($purchases as $purchase)
+        <div class="product-card">
+            <a href="{{ route('detail.show', $purchase->product->id) }}">
+                <img class="product-img" src="{{ asset('storage/' . $purchase->product->img_url) }}" alt="商品画像">
+            </a>
+            <div class="product-detail">
+                <p>{{ $purchase->product->name }}</p>
+            </div>
+        </div>
+        @endforeach
+    @endif
+</section>
 @endsection

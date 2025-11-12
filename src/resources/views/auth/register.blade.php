@@ -5,77 +5,77 @@
 @endsection
 
 @section('content')
-<div class="form__wrapper">
+<div class="form-wrapper">
     <form class="form" action="/register" method="post">
         @csrf
-        <div class="form__content">
-            <div class="form__heading">
-                <h1 class="heading__title">会員登録</h1>
+        <div class="form-content">
+            <div class="form-heading">
+                <h1 class="heading-title">会員登録</h1>
             </div>
-            <div class="form__group">
-                <div class="form__group-title">
-                    <span class="form__label--item">ユーザー名</span>
+            <div class="form-group">
+                <div class="form-group-title">
+                    <span class="form-label-item">ユーザー名</span>
                 </div>
-                <div class="form__group-content">
-                    <div class="form__input--text">
+                <div class="form-group-content">
+                    <div class="form-input-text">
                         <input type="text" name="name" value="{{ old('name') }}" />
                     </div>
-                    <div class="form__error">
-                    @error('name')
-                    {{ $message }}
-                    @enderror
+                    <div class="form-error">
+                        @error('name')
+                            {{ $message }}
+                        @enderror
                     </div>
                 </div>
             </div>
-            <div class="form__group">
-                <div class="form__group-title">
-                    <span class="form__label--item">メールアドレス</span>
+            <div class="form-group">
+                <div class="form-group-title">
+                    <span class="form-label-item">メールアドレス</span>
                 </div>
-                <div class="form__group-content">
-                    <div class="form__input--text">
+                <div class="form-group-content">
+                    <div class="form-input-text">
                         <input type="text" name="email" value="{{ old('email') }}" />
                     </div>
-                    <div class="form__error">
+                    <div class="form-error">
                         @error('email')
-                        {{ $message }}
+                            {{ $message }}
                         @enderror
                     </div>
                 </div>
             </div>
-            <div class="form__group">
-                <div class="form__group-title">
-                    <span class="form__label--item">パスワード</span>
+            <div class="form-group">
+                <div class="form-group-title">
+                    <span class="form-label-item">パスワード</span>
                 </div>
-                <div class="form__group-content">
-                    <div class="form__input--text">
+                <div class="form-group-content">
+                    <div class="form-input-text">
                         <input type="text" name="password" />
                     </div>
-                    <div class="form__error">
+                    <div class="form-error">
                         @error('password')
-                        {{ $message }}
+                            {{ $message }}
                         @enderror
                     </div>
                 </div>
             </div>
-            <div class="form__group">
-                <div class="form__group-title">
-                    <span class="form__label--item">確認用パスワード</span>
+            <div class="form-group">
+                <div class="form-group-title">
+                    <span class="form-label-item">確認用パスワード</span>
                 </div>
-                <div class="form__group-content">
-                    <div class="form__input--text">
+                <div class="form-group-content">
+                    <div class="form-input-text">
                         <input type="text" name="password_confirmation" />
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="form__button">
-            <button class="form__button-submit" type="submit">登録する</button>
+        <div class="form-button">
+            <button class="form-button-submit" type="submit">登録する</button>
         </div>
     </form>
 
-    <div class="login__link">
-        <a class="login__button-submit" href="/login">ログインはこちら</a>
+    <div class="login-link">
+        <a class="login-button-submit" href="/login">ログインはこちら</a>
     </div>
 </div>
 @endsection

@@ -9,36 +9,31 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Purchase;
 
-use Illuminate\Support\Facades\Auth; //認証
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    public function myPage(Request $request)
+    public function showProfile(Request $request)
     {
         $user = Auth::user();
-
-        $page =$request->query('page','sell');
-
+        $page = $request->query('page','sell');
         $myProducts = Product::where('user_id', $user->id)->get();
+        $purchases = Purchase::where('user_id', $user->id)->with('product')->get();
 
-        $purchases = Purchase::where('user_id', $user->id)
-                        ->with('product') // 商品情報も同時に取得
-                        ->get();
-
-        return view('mypage', compact('user', 'page', 'myProducts', 'purchases'));
+        return view('profile', compact('user', 'page', 'myProducts', 'purchases'));
     }
 
     public function editProfile()
     {
         $user = Auth::user();
+        $page = null;
 
-        return view('profile', compact('user'));
+        return view('edit_profile', compact('user','page'));
     }
 
     public function updateProfile(ProfileRequest $request)
     {
         $user = Auth::user();
-
         $data = $request->only(['name','postcode','address','building']);
 
         if ($request->hasFile('img')) {
@@ -46,18 +41,17 @@ class ProfileController extends Controller
                 \Storage::disk('public')->delete($user->img_url);
             }
 
-            $path = $request->file('img')->store('user_images', 'public');
-            $data['img_url'] = $path;
+            $image = $request->file('img')->store('user_images', 'public');
+            $data['img_url'] = $image;
         }
 
         $isFirstProfile = empty($user->postcode) && empty($user->address);
-
         $user->update($data);
 
         if ($isFirstProfile) {
-        return redirect()->route('top.show');
+            return redirect()->route('top.show');
         }
 
-        return redirect()->route('mypage.show');
+        return redirect()->route('profile.show');
     }
 }

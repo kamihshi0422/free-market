@@ -1,4 +1,4 @@
-.form__wrapper {
+.form-wrapper {
     width: 100%;
     max-width: 1515px;
     height: 1068px;
@@ -10,42 +10,42 @@
     box-sizing: border-box;
 }
 
-.form__content {
+.form-content {
     width: 680px;
     height: 678px;
 }
 
-.form__heading {
+.form-heading {
     text-align: center;
     margin-bottom: 40px;
 }
 
-.heading__title {
+.heading-title {
     font-size: 36px;
 }
 
-.form__group {
+.form-group {
     margin-bottom: 40px;
 }
 
-.form__group-title {
+.form-group-title {
     margin-left: 0px;
     margin-bottom: 5px;
 }
 
-.form__label--item {
+.form-label-item {
     font-weight: bold;
     font-size: 24px;
 }
 
-.form__group input {
+.form-group input {
     width: 680px;
     height: 45px;
     border: 1px solid #5F5F5F;
     border-radius: 4px;
 }
 
-.form__button-submit {
+.form-button-submit {
     width: 680px;
     height: 60px;
     font-size: 26px;
@@ -58,5 +58,5 @@
 }
 
 .error {
-    color: red !important;
+    color: red;
 }

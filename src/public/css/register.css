@@ -1,4 +1,4 @@
-.form__wrapper {
+.form-wrapper {
     width: 100%;
     max-width: 1515px;
     height: 1068px;
@@ -11,44 +11,44 @@
     box-sizing: border-box;
 }
 
-.form__content {
+.form-content {
     width: 680px;
     height: 678px;
 }
 
-.form__heading {
+.form-heading {
     text-align: center;
 }
 
-.heading__title {
+.heading-title {
     font-size: 36px;
 }
 
-.form__group {
+.form-group {
     margin-bottom: 20px;
 }
 
-.form__group-title {
+.form-group-title {
     margin-left: 0px;
 }
 
-.form__label--item {
+.form-label-item {
     font-weight: bold;
     font-size: 24px;
 }
 
-.form__input--text input {
+.form-input-text input {
     width: 680px;
     height: 59px;
     border: 1px solid #5F5F5F;
     border-radius: 4px;
 }
 
-.form__button {
+.form-button {
     text-align: center;
 }
 
-.form__button-submit {
+.form-button-submit {
     width: 680px;
     height: 65.25px;
     font-size: 26px;
@@ -59,7 +59,7 @@
     border-radius: 5px;
 }
 
-.login__link {
+.login-link {
     width: 257px;
     height: 53px;
     display: flex;
@@ -69,12 +69,12 @@
     margin-top: 20px;
 }
 
-.login__button-submit {
+.login-button-submit {
     text-decoration: none;
     font-size: 20px;
     color: #0073CC;
 }
 
-.form__error {
-    color: red !important;
+.form-error {
+    color: red;
 }

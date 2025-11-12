@@ -35,16 +35,13 @@ class SearchTest extends TestCase
         $user = User::factory()->create();
         $product = Product::factory()->create(['name' => 'Apple iPhone']);
 
-        // マイリストに追加
         $user->mylists()->attach($product->id);
 
         $this->actingAs($user);
 
-        // 検索結果ページで確認
         $response = $this->get('/?keyword=Apple');
         $response->assertSee('Apple iPhone');
 
-        // マイリストタブで検索ワード保持確認
         $response = $this->get('/?tab=mylist&keyword=Apple');
         $response->assertSee('Apple iPhone');
     }

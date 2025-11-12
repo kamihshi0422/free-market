@@ -1,5 +1,4 @@
-/* 全体 wrapper ではなく content に直接高さ・幅指定 */
-.form__content {
+.form-wrapper {
     width: 100%;
     max-width: 1515px;
     height: 982px;
@@ -9,30 +8,30 @@
     align-items: center;
 }
 
-.form__heading {
+.form-heading {
     text-align: center;
     margin-bottom: 30px;
 }
 
-.form__heading h2 {
+.heading-title {
     font-size: 36px;
 }
 
-.form__group {
+.form-group {
     width: 100%;
     margin-bottom: 20px;
 }
 
-.form__group-title {
+.form-group-title {
     margin-bottom: 5px;
 }
 
-.form__label {
+.form-label-item {
     font-weight: bold;
     font-size: 24px;
 }
 
-.form__input--text input {
+.form-input-text input {
     width: 680px;
     height: 59px;
     border: 1px solid #5F5F5F;
@@ -42,14 +41,14 @@
     box-sizing: border-box;
 }
 
-.form__button {
+.form-button {
     width: 100%;
     margin-top: 50px;
     display: flex;
     justify-content: center;
 }
 
-.form__button-submit {
+.form-button-submit {
     width: 100%;
     height: 65px;
     font-size: 26px;
@@ -61,7 +60,7 @@
     cursor: pointer;
 }
 
-.login__link {
+.login-link {
     margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
@@ -69,13 +68,13 @@
     align-items: center;
 }
 
-.login__button-submit {
+.login-button-submit {
     text-decoration: none;
     font-size: 20px;
     color: #0073CC;
 }
 
-.form__error {
+.form-error {
     color: red;
     margin-top: 5px;
     font-size: 16px;

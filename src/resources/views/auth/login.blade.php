@@ -5,54 +5,57 @@
 @endsection
 
 @section('content')
-<div class="form__content">
-    <div class="form__heading">
-        <h2>ログイン</h2>
+<div class="form-wrapper">
+    <div class="form-heading">
+        <h2 class="heading-title">ログイン</h2>
     </div>
-    <form class="form" action="/login" method="post">
+    <form action="/login" method="post">
         @csrf
-        <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">メールアドレス</span>
+        <div class="form-group">
+            <div class="form-group-title">
+                <span class="form-label-item">メールアドレス</span>
             </div>
-            <div class="form__group-content">
-                <div class="form__input--text">
-                    <input type="text" name="email" value="{{ old('email') }}" />
+            <div class="form-group-content">
+                <div class="form-input-text">
+                    <input type="text" name="email" value="{{ old('email') }}">
                 </div>
-                <div class="form__error">
+                <div class="form-error">
                     @error('email')
-                    {{ $message }}
+                        {{ $message }}
                     @enderror
                 </div>
             </div>
         </div>
-        <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">パスワード</span>
+
+        <div class="form-group">
+            <div class="form-group-title">
+                <span class="form-label-item">パスワード</span>
             </div>
-            <div class="form__group-content">
-                <div class="form__input--text">
-                    <input type="text" name="password" />
+            <div class="form-group-content">
+                <div class="form-input-text">
+                    <input type="text" name="password">
                 </div>
-                <div class="form__error">
+                <div class="form-error">
                     @error('password')
-                    {{ $message }}
+                        {{ $message }}
                     @enderror
                 </div>
             </div>
         </div>
+
         @if ($errors->has('login'))
-            <div class="form__error">
+            <div class="form-error">
                 {{ $errors->first('login') }}
             </div>
         @endif
-        <div class="form__button">
-            <button class="form__button-submit" type="submit">ログインする</button>
+
+        <div class="form-button">
+            <button class="form-button-submit" type="submit">ログインする</button>
         </div>
     </form>
-    <div class="login__link">
-        <a class="login__button-submit" href="/register">会員登録はこちら</a>
+
+    <div class="login-link">
+        <a class="login-button-submit" href="/register">会員登録はこちら</a>
     </div>
 </div>
 @endsection
-</div>

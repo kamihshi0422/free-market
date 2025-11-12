@@ -23,12 +23,10 @@ class PaymentSelectTest extends TestCase
         $user = User::factory()->create();
         $product = Product::factory()->create();
 
-        // GET で小計画面にアクセス、pay_method はクエリパラメータで渡す
         $response = $this->actingAs($user)
-                        ->get(route('purchases.show', $product->id) . '?pay_method=2');
+                        ->get(route('purchase.show', $product->id) . '?pay_method=2');
 
         $response->assertStatus(200);
-        $response->assertSee('カード払い'); // Blade に表示される文字列
+        $response->assertSee('カード払い');
     }
-
 }

@@ -1,89 +1,114 @@
-.form-wrapper {
+.mypage-head {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    flex-direction: column;
-    margin: 20px auto;
+    width: 1017px;
+    gap: 50px;
+    margin: 60px auto;
 }
 
-.form-ttl {
-    font-size: 36px;
-    font-weight: bold;
-}
-
-.user-box {
+.user {
     display: flex;
+    justify-content: space-between;
+    gap: 60px;
     align-items: center;
-    margin: 60px 0;
 }
 
-.user-box img {
+.user-img img {
     width: 150px;
     height: 150px;
     border-radius: 50%;
 }
 
-.user-box input[type="file"] {
-    display: none;
-}
-
-.img-btn {
-    display: inline-block;
-    background-color: #fff;
-    color:  #FF5555;
-    border: 2px solid #FF5555;
-    border-radius: 10px;
-    width: 179px;
-    height: 49px;
-    line-height: 49px;
-    margin-left: 30px;
-    text-align: center;
-    font-size: 20px;
+.user-name {
+    font-size: 36px;
     font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-.form__group {
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.form__group-ttl {
-    margin: 20px 0;
-}
-
-.form__label {
-    font-weight: bold;
-    font-size: 24px;
-}
-
-.form__group input {
-    width: 680px;
-    height: 55px;
-    border: 1px solid #5F5F5F;
-    border-radius: 4px;
-    font-size: 18px;
-    color: #5F5F5F;
-    padding: 0 10px;
-    box-sizing: border-box;
-}
-
-.form__button-submit {
-    width: 680px;
-    height: 60px;
+.profile-edit-btn {
+    text-decoration: none;
     font-size: 26px;
     font-weight: bold;
-    background-color: #FF5555;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 50px 0;
+    color: #FF5555;
+    border: 2px solid #FF5555;
+    border-radius: 10px;
+    width: 310px;
+    text-align: center;
+    padding: 5px 20px;
+    margin-left: 200px;
 }
 
-.error {
+.mypage-nav {
+    display: flex;
+    gap: 40px;
+    padding-left: 100px;
+    border-bottom: 2px solid #5F5F5F;
+}
+
+.mypage-nav a {
+    text-decoration: none;
+    width: 155px;
+    height: 40px;
+    font-size: 24px;
+    color: #5F5F5F;
+}
+
+/* 現在のタブを赤く表示 */
+.mypage-nav a.active {
     color: red;
-    margin-top: 5px;
-    font-size: 16px;
+    font-weight: bold;
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 50px;
+    margin: 80px auto 0;
+    max-width: 1400px;
+    justify-items: center;
+    padding: 0 20px;
+}
+
+.product-card {
+    text-align: center;
+    border-radius: 4px;
+}
+
+.product-img {
+    width: 290px;
+    height: 290px;
+    object-fit: cover;
+    box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+.product-detail {
+    display: flex;
+    gap: 20px;
+    justify-content: left;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.product-detail p {
+    font-size: 25px;
+    margin: 0;
+}
+
+.sold-label {
+    font-size: 25px;
+    color: red;
+}
+
+/* 1400〜1540pxでも崩れないように微調整 */
+@media screen and (max-width: 1540px) {
+    .product-list {
+        gap: 70px 50px;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .product-list {
+        grid-template-columns: repeat(3, 1fr);
+        padding: 0 40px;
+    }
 }

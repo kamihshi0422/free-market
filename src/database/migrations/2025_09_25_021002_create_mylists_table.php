@@ -19,7 +19,7 @@ class CreateMylistsTable extends Migration
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->timestamps();
 
-            $table->unique(['user_id', 'product_id']); //同じユーザーが同じ商品を2回マイリストに入れることはできなくなる
+            $table->unique(['user_id', 'product_id']);
         });
     }
 

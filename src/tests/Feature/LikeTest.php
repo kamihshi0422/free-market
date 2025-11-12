@@ -16,7 +16,6 @@ class LikeTest extends TestCase
     {
         parent::setUp();
 
-        // 条件データを作成しておく
         $this->seed(ConditionSeederTest::class);
     }
 
@@ -45,7 +44,7 @@ class LikeTest extends TestCase
              ->post("/item/{$product->id}/like");
 
         $response = $this->get("/item/{$product->id}");
-        $response->assertSee('liked'); // bladeで class="liked" 等を想定
+        $response->assertSee('liked');
     }
 
     /** @test */
@@ -55,8 +54,7 @@ class LikeTest extends TestCase
         $product = Product::factory()->create();
         $user->mylists()->attach($product->id);
 
-        $this->actingAs($user)
-             ->post("/item/{$product->id}/like");
+        $this->actingAs($user)->post("/item/{$product->id}/like");
 
         $this->assertDatabaseMissing('mylists', [
             'user_id' => $user->id,

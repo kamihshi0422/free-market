@@ -1,25 +1,25 @@
-.content__wrapper {
+.content-wrapper {
     width: 680px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     margin: 20px auto;
 }
 
-.content__ttl {
+.content-title {
     font-size: 36px;
     font-weight: bold;
 }
 
-.group-ttl {
+.group-title {
     display: inline-block;
     font-size: 24px;
     font-weight: bold;
     margin: 10px 0;
 }
 
-.img__box {
+.image-box {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,11 +29,11 @@
     border-radius: 4px;
 }
 
-.img__box input[type="file"] {
+.image-box input[type="file"] {
     display: none;
 }
 
-.img__btn {
+.image-button {
     display: inline-block;
     background-color: #fff;
     color: #FF5555;
@@ -50,7 +50,7 @@
     transition: background-color 0.3s;
 }
 
-.group__sub-ttl {
+.group-sub-title {
     display: block;
     font-size: 30px;
     font-weight: bold;
@@ -67,11 +67,11 @@
     margin: 40px 0px 40px 10px;
 }
 
-.category-btn input {
+.category-button input {
     display: none;
 }
 
-.category-btn span {
+.category-button span {
     border: 1px solid red;
     border-radius: 20px;
     padding: 3px 20px;
@@ -82,17 +82,16 @@
     cursor: pointer;
 }
 
-.category-btn input:checked+span {
+.category-button input:checked+span {
     background-color: red;
     color: white;
 }
 
-/* ▼を右側に追加 */
-.condition__box {
+.condition-box {
     position: relative;
 }
 
-.condition__box select {
+.condition-box select {
     width: 680px;
     height: 45px;
     border: 1px solid #5F5F5F;
@@ -100,19 +99,18 @@
     padding: 0px 30px 0px 10px;
     font-size: 16px;
     appearance: none;
-    /* デフォルト矢印を消す */
     background-color: #fff;
     background-image: none;
     position: relative;
 }
 
-.condition__box select:focus {
+.condition-box select:focus {
     background-color: #636769;
     color: #fff;
     outline: none;
 }
 
-.condition__box::after {
+.condition-box::after {
     content: "▼";
     position: absolute;
     left: 650px;
@@ -122,30 +120,28 @@
     color: #5F5F5F;
 }
 
-.group__box {
+.group-box {
     margin-bottom: 20px;
 }
 
-.group__box input {
+.group-box input,
+.group-box textarea {
     width: 680px;
-    height: 45px;
-    border: 1px solid #5F5F5F;
-    border-radius: 4px;
-    font-size: 18px;
-    color: #5F5F5F;
-    padding: 0 10px;
-    box-sizing: border-box;
-}
-
-.group__box textarea {
-    width: 680px;
-    height: 125px;
     border: 1px solid #5F5F5F;
     border-radius: 4px;
     font-size: 18px;
     color: #5F5F5F;
     padding: 10px;
     box-sizing: border-box;
+}
+
+.group-box input {
+    height: 45px;
+    padding: 0 10px;
+}
+
+.group-box textarea {
+    height: 125px;
 }
 
 .price-input {
@@ -169,11 +165,7 @@
     transform: translateY(-50%);
 }
 
-label {
-    font-weight: bold;
-}
-
-.sell__btn {
+.sell-button {
     width: 680px;
     height: 60px;
     font-size: 26px;
@@ -186,9 +178,8 @@ label {
     margin: 70px 0;
 }
 
-.error {
+.error-message {
     color: red;
     margin-top: 5px;
     font-size: 16px;
 }
-

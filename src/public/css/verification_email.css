@@ -14,7 +14,7 @@
 }
 
 .verify-btn {
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     width: 257px;
@@ -22,11 +22,12 @@
     background-color: #D9D9D9;
     border: 1px solid #000;
     border-radius: 10px;
-    text-decoration: none !important;
-    color: #000 !important;
+    text-decoration: none;
+    color: #000;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 40px;
+    cursor: pointer;
 }
 
 .retry-box {

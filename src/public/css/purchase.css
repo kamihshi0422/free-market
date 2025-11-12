@@ -1,64 +1,64 @@
-.buy__wrapper {
+.buy-wrapper {
     display: flex;
     gap: 40px;
     margin: 90px 70px;
     align-items: flex-start;
 }
 
-.pay__box {
+.payment-box {
     flex: 1;
     max-width: 805px;
 }
 
-.product__info {
+.product-info {
     display: flex;
     gap: 40px;
     padding-bottom: 50px;
     border-bottom: 1px solid #000;
 }
 
-.product__img {
+.product-img {
     width: 177px;
     height: 177px;
 }
 
-.product__details {
+.product-details {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.product__name {
+.product-name {
     margin: 0;
     font-size: 30px;
     font-weight: bold;
 }
 
-.product__price {
+.product-price {
     margin: 0;
     font-size: 30px;
 }
 
-.product__price::before {
+.product-price::before {
     content: "¥";
     font-size: 27px;
     vertical-align: middle;
     padding-right: 5px;
 }
 
-.payment__section {
+.payment-section {
     position: relative;
     padding-bottom: 50px;
     border-bottom: 1px solid #000;
 }
 
-.payment__ttl {
+.payment-title {
     font-size: 20px;
     font-weight: bold;
     padding-left: 40px;
 }
 
-.payment__section select {
+.payment-section select {
     width: 265px;
     height: 40px;
     margin-left: 80px;
@@ -72,13 +72,13 @@
     position: relative;
 }
 
-.payment__section select:focus {
+.payment-section select:focus {
     background-color: #636769;
     color: #fff;
     outline: none;
 }
 
-.payment__section::after {
+.payment-section::after {
     content: "▼";
     position: absolute;
     left: 320px;
@@ -88,18 +88,18 @@
     color: #5F5F5F;
 }
 
-.address__section {
+.address-section {
     padding-bottom: 50px;
     border-bottom: 1px solid #000;
 }
 
-.address__section-header {
+.address-section-header {
     display: flex;
     justify-content: space-between;
     padding: 20px 20px 20px 0;
 }
 
-.address__ttl {
+.address-title {
     font-size: 20px;
     font-weight: bold;
     margin: 0;
@@ -111,47 +111,47 @@
     font-size: 20px;
 }
 
-.address__view {
+.address-view {
     margin: 0;
     margin-left: 80px;
     font-size: 20px;
     font-weight: 600;
 }
 
-.buy__box {
+.buy-box {
     width: 440px;
     flex-shrink: 0;
 }
 
-.confirm__section {
+.confirm-section {
     width: 440px;
     height: 230px;
     margin-bottom: 60px;
 }
 
-.confirm__table {
+.confirm-table {
     border: solid 1px #000;
     border-collapse: collapse;
     width: 100%;
 }
 
-.confirm__table tr {
+.confirm-table tr {
     border-bottom: solid 1px #000;
 }
 
-.confirm__table tr th,
-.confirm__table tr td {
+.confirm-table tr th,
+.confirm-table tr td {
     width: 220px;
     height: 115px;
     font-size: 20px;
     text-align: center;
 }
 
-.confirm__table tr td {
+.confirm-table tr td {
     font-size: 24px;
 }
 
-.confirm__price::before {
+.confirm-price::before {
     content: "¥";
     font-size: 20px;
     vertical-align: middle;
@@ -167,8 +167,8 @@
     background-color: #FF5555;
     border-radius: 4px;
     border: none;
-    text-decoration: none !important;
-    color: #fff !important;
+    text-decoration: none;
+    color: #fff;
     font-size: 26px;
     font-weight: bold;
 }

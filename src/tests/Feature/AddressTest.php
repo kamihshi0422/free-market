@@ -18,13 +18,12 @@ class AddressTest extends TestCase
     {
         parent::setUp();
 
-        // Condition が必要なので最低1件作成
         Condition::factory()->create(['id' => 1]);
     }
 
     protected function tearDown(): void
     {
-        Mockery::close(); // モックをクリーンアップ
+        Mockery::close();
         parent::tearDown();
     }
 
@@ -34,11 +33,10 @@ class AddressTest extends TestCase
         $user = User::factory()->create();
         $product = Product::factory()->create(['condition_id' => 1]);
 
-        $this->actingAs($user)
-             ->post("/purchase/address/{$product->id}", [
-                 'postcode' => '123-4567',
-                 'address' => 'Tokyo, Shibuya',
-             ]);
+        $this->actingAs($user)->post("/purchase/address/{$product->id}", [
+            'postcode' => '123-4567',
+            'address' => 'Tokyo, Shibuya',
+        ]);
 
         $response = $this->get("/purchase/{$product->id}");
         $response->assertSee('123-4567');
@@ -51,7 +49,6 @@ class AddressTest extends TestCase
         $user = User::factory()->create();
         $product = Product::factory()->create(['condition_id' => 1]);
 
-        // Stripe モック（静的メソッドを置き換え）
         $mock = Mockery::mock('overload:Stripe\Checkout\Session');
         $mock->shouldReceive('create')
             ->once()
@@ -60,21 +57,16 @@ class AddressTest extends TestCase
                 'url' => '/fake-stripe-url',
             ]);
 
-        // 住所変更
-        $this->actingAs($user)
-            ->post(route('address.update', $product->id), [
+        $this->actingAs($user)->post(route('address.update', $product->id), [
                 'postcode' => '123-4567',
                 'address' => 'Tokyo, Shibuya',
             ]);
 
-        // 仮購入（Stripe ページにリダイレクトされるが、DB に登録される）
-        $this->actingAs($user)
-            ->post(route('purchases.store', $product->id), [
-                'pay_method' => 2, // カード払い
+        $this->actingAs($user)->post(route('purchase.store', $product->id), [
+                'pay_method' => 2,
                 'address' => '123-4567 Tokyo, Shibuya',
             ]);
 
-        // DB に仮購入が作成されているか確認
         $this->assertDatabaseHas('purchases', [
             'user_id' => $user->id,
             'product_id' => $product->id,

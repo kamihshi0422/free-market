@@ -17,32 +17,27 @@ use App\Models\Comment;
 use App\Models\Category;
 use App\Models\Condition;
 
-use Illuminate\Support\Facades\Auth; //認証
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    public function top(Request $request)
+    public function showTop(Request $request)
     {
-         // クエリビルダーを作成
-        $query = Product::query()->with('purchase')->withCount('mylists'); // 購入情報もロード
+        $query = Product::query()->with('purchase')->withCount('mylists');
 
-        // 自分が出品した商品は除外
         if (Auth::check()) {
             $query->where('user_id', '!=', Auth::id());
         }
 
-         // 商品名で部分一致検索
         if ($request->filled('keyword')) {
             $keyword = $request->keyword;
             $query->where('name', 'like', "%{$keyword}%");
         }
 
-        // マイリストタブの場合
         if ($request->tab === 'mylist') {
             if (Auth::check()) {
                 $query->whereIn('id', Auth::user()->mylists()->pluck('products.id'));
             } else {
-                // 未認証は0件
                 $query->whereRaw('0=1');
             }
         }
@@ -57,27 +52,21 @@ class ProductController extends Controller
         $user = Auth::user();
         $product = Product::withCount('mylists')->findOrFail($id);
 
-        // いいねの追加・削除
         if ($user->mylists()->where('product_id', $id)->exists()) {
             $user->mylists()->detach($id);
         } else {
             $user->mylists()->attach($id);
         }
 
-        // ユーザーの mylists を再ロード
         $user->load('mylists');
 
-         // リダイレクトして detail() を呼び、最新データを取得
         return redirect()->route('detail.show', $id);
     }
 
-    public function detail($id)
+    public function showDetail($id)
     {
-        $product = Product::with(['categories', 'condition', 'comments', 'mylists', 'purchase'])
-                        ->withCount('mylists')
-                        ->findOrFail($id);
+        $product = Product::with(['categories', 'condition', 'comments', 'mylists', 'purchase'])->withCount('mylists')->findOrFail($id);
 
-        // ログイン済みならユーザーの mylists も最新化
         if (Auth::check()) {
             Auth::user()->load('mylists');
         }
@@ -85,7 +74,7 @@ class ProductController extends Controller
         return view('detail', compact('product'));
     }
 
-    public function comment(CommentRequest $request, $id)
+    public function storeComment(CommentRequest $request, $id)
     {
         $product = Product::findOrFail($id);
 
@@ -97,18 +86,15 @@ class ProductController extends Controller
         return redirect()->route('detail.show',$id);
     }
 
-    // 購入画面表示
-    public function showBuy(Request $request, $id)
+    public function showPurchase(Request $request, $id)
     {
         $user = Auth::user();
         $product = Product::findOrFail($id);
 
-        // 変更済み住所があるか確認
         $address = \App\Models\Address::where('user_id', $user->id)
                 ->where('product_id', $product->id)
                 ->first();
 
-        // なければユーザーの登録住所を使う
         if (!$address) {
             $address = (object)[
                 'postcode' => $user->postcode,
@@ -119,20 +105,19 @@ class ProductController extends Controller
 
         $pay_method = $request->input('pay_method', old('pay_method', null));
 
-        return view('buy',compact('product','user','address', 'pay_method'));
+        return view('purchase',compact('product','user','address','pay_method'));
     }
 
-    public function buy(PurchaseRequest $request, $id)
+    public function purchase(PurchaseRequest $request, $id)
     {
         $user = Auth::user();
         $product = Product::findOrFail($id);
-        $pay_method = $request->input('pay_method', 1); // 1: コンビニ, 2: カード
+        $pay_method = $request->input('pay_method', 1);
 
         \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
         $payment_method_types = $pay_method == 1 ? ['konbini'] : ['card'];
 
-        // Stripeセッション作成
         $session = \Stripe\Checkout\Session::create([
             'payment_method_types' => $payment_method_types,
             'line_items' => [[
@@ -144,7 +129,7 @@ class ProductController extends Controller
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => route('top.show') . '?session_id={CHECKOUT_SESSION_ID}', // 成功後トップへ
+            'success_url' => route('top.show') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('top.show'),
             'metadata' => [
                 'product_id' => $product->id,
@@ -152,16 +137,14 @@ class ProductController extends Controller
             ],
         ]);
 
-        // ✅ DBに仮購入を登録（Stripe決済前の状態）
         \App\Models\Purchase::create([
             'user_id' => $user->id,
             'product_id' => $product->id,
             'pay_method' => $pay_method,
             'address' => $request->input('address'),
-            'stripe_payment_intent_id' => null, // 決済前
+            'stripe_payment_intent_id' => null,
         ]);
 
-        // StripeページURLを返す
         return redirect($session->url);
     }
 
@@ -170,7 +153,6 @@ class ProductController extends Controller
         $user = Auth::user();
         $product = Product::findOrFail($id);
 
-        // 既存住所を取得、なければユーザー基本住所を設定
         $address = \App\Models\Address::firstOrNew(
             ['user_id' => $user->id, 'product_id' => $product->id],
             [
@@ -186,7 +168,6 @@ class ProductController extends Controller
     public function updateAddress(AddressRequest $request, $id)
     {
         $user = Auth::user();
-
         $validated = $request->validated();
 
         \App\Models\Address::updateOrCreate(
@@ -198,23 +179,21 @@ class ProductController extends Controller
             ]
         );
 
-        return redirect()->route('purchases.show', $id);
+        return redirect()->route('purchase.show', $id);
     }
 
-    public function showSell()
+    public function showExhibition()
     {
         $categories = Category::all();
         $conditions = Condition::all();
 
-
-        return view('sell',compact('categories','conditions'));
+        return view('exhibition',compact('categories','conditions'));
     }
 
-    public function sell(ExhibitionRequest $request)
+    public function exhibition(ExhibitionRequest $request)
     {
         $data = $request->validated();
-
-        $path = $request->file('img_url')->store('products_images', 'public');
+        $image = $request->file('img_url')->store('products_images', 'public');
 
         $product = Product::create([
             'user_id' => Auth::id(),
@@ -223,7 +202,7 @@ class ProductController extends Controller
             'detail' => $data['detail'],
             'price' => $data['price'],
             'condition_id' => $data['condition_id'],
-            'img_url' => $path,
+            'img_url' => $image,
         ]);
 
         $product->categories()->sync($data['category_ids']);

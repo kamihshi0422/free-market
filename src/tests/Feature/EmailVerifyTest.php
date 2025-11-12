@@ -22,10 +22,8 @@ class EmailVerifyTest extends TestCase
 
         $user = User::factory()->unverified()->create();
 
-        $this->actingAs($user)
-             ->post('/email/verification-notification');
+        $this->actingAs($user)->post('/email/verification-notification');
 
-        // VerifyEmail通知が送信されたか確認
         Notification::assertSentTo($user, VerifyEmail::class);
     }
 
@@ -41,7 +39,7 @@ class EmailVerifyTest extends TestCase
         );
 
         $response = $this->actingAs($user)->get($verificationUrl);
-        $response->assertStatus(302); // リダイレクトされる
+        $response->assertStatus(302);
     }
 
     /** @test */

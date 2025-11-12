@@ -23,19 +23,17 @@ class ProductSellTest extends TestCase
         $category = Category::factory()->create();
         $condition = Condition::factory()->create();
 
-        // GD 不要のダミーファイル
-        $file = UploadedFile::fake()->create('product.jpg', 100); // 100KB の空ファイル
+        $file = UploadedFile::fake()->create('product.jpg', 100);
 
-        $this->actingAs($user)
-             ->post('/sell', [
-                 'name' => 'New Product',
-                 'brand_name' => 'Brand',
-                 'detail' => 'Description',
-                 'condition_id' => $condition->id,
-                 'price' => 1000,
-                 'img_url' => $file,
-                 'category_ids' => [$category->id],
-             ]);
+        $this->actingAs($user)->post('/sell', [
+            'name' => 'New Product',
+            'brand_name' => 'Brand',
+            'detail' => 'Description',
+            'condition_id' => $condition->id,
+            'price' => 1000,
+            'img_url' => $file,
+            'category_ids' => [$category->id],
+        ]);
 
         $this->assertDatabaseHas('products', [
             'name' => 'New Product',

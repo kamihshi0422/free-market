@@ -16,7 +16,6 @@ class CommentTest extends TestCase
     {
         parent::setUp();
 
-        // Condition データを作成しておく
         $this->seed(ConditionSeederTest::class);
     }
 
@@ -26,15 +25,14 @@ class CommentTest extends TestCase
         $user = User::factory()->create();
         $product = Product::factory()->create();
 
-        $this->actingAs($user)
-             ->post("/item/{$product->id}/comment", [
-                 'content' => 'テストコメント', // content → comment に修正
-             ]);
+        $this->actingAs($user)->post("/item/{$product->id}/comment", [
+            'content' => 'テストコメント',
+        ]);
 
         $this->assertDatabaseHas('comments', [
             'user_id' => $user->id,
             'product_id' => $product->id,
-            'comment' => 'テストコメント', // 修正済み
+            'comment' => 'テストコメント',
         ]);
     }
 
@@ -56,11 +54,10 @@ class CommentTest extends TestCase
         $user = User::factory()->create();
         $product = Product::factory()->create();
 
-        $longComment = str_repeat('あ', 256); // 256文字
-        $response = $this->actingAs($user)
-                         ->post("/item/{$product->id}/comment", [
-                             'content' => $longComment,
-                         ]);
+        $longComment = str_repeat('あ', 256);
+        $response = $this->actingAs($user)->post("/item/{$product->id}/comment", [
+            'content' => $longComment,
+        ]);
 
         $response->assertSessionHasErrors('content');
     }
